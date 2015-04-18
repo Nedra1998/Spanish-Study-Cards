@@ -25,6 +25,7 @@ private:
 	Object* Text;
 	Object* Background;
 	int Mouse_Over = 0;
+	bool Mouse = false;
 	/*>>>>>-----PRIVATE FUNCTIONS-----<<<<<*/
 	/*-----Objects Functions-----*/
 	void Genorate_Points();

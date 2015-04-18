@@ -1,6 +1,7 @@
 #include "Libraries.h"
 #include "Hephaestus.h"
 #include "Logging.h"
+#include "Menu.h"
 using namespace std;
 Hephaestus H;
 GLFWwindow* Win;
@@ -14,6 +15,7 @@ void Window_Call(GLFWwindow* Win, int width, int hight){
 	glfwSetWindowSize(Win, width, hight);
 }
 int main(){
+	Menu M;
 	GLFWwindow* Win;
 	Win = H.Full_Setup();
 	glEnable(GL_DEPTH_TEST);
@@ -25,10 +27,14 @@ int main(){
 	glfwSetWindowSizeCallback(Win, Window_Call);
 	srand(time(NULL));
 	/*>>>>>Place Before Start Code Here<<<<<*/
-
+	int Menu = 0;
+	M.Initilize_Menu(Win, H);
 	while (!glfwWindowShouldClose(Win)){
 		/*>>>>>Place While Running Code Here<<<<<*/
-		
+		if (Menu == 0){
+			Menu = M.Run_Menu(Menu);
+
+		}
 		H.Display_All_Layers();
 		H.Frame();
 	}

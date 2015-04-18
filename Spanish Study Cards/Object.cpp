@@ -752,7 +752,17 @@ void Object::New_Button(string text, string texture, string font, float x, float
 	xshift = -((letter_sizex * Length) / 2);
 	yshift = ((Lines / 2) * letter_sizey);
 	Text->Translate_Text_Object(xshift, yshift, 0);
-	Background->New_Textured_Object(texture + " 1", 4, x, y, 0, 0);
+	ifstream Test(texture + " 1.tga");
+	if (Test.is_open()){
+		Mouse = true;
+		Test.close();
+	}
+	if (Mouse == true){
+		Background->New_Textured_Object(texture + " 1", 4, x, y, 0, 0);
+	}
+	else if (Mouse == false){
+		Background->New_Textured_Object(texture, 4, x, y, 0, 0);
+	}
 }
 bool Object::Check_Button(float x, float y, float cx, float cy){
 	if (x > Object_Data[7] && x < Object_Data[6] && y > Object_Data[9] && y < Object_Data[8]){
@@ -761,15 +771,16 @@ bool Object::Check_Button(float x, float y, float cx, float cy){
 	else{
 		Mouse_Over = 3;
 	}
-	if (Mouse_Over == 1){
-		Mouse_Over = 2;
-		Background->New_Textured_Object(Texture + " 2", 4, Object_Data[4], Object_Data[5], 0, 0);
+	if (Mouse == true){
+		if (Mouse_Over == 1){
+			Mouse_Over = 2;
+			Background->New_Textured_Object(Texture + " 2", 4, Object_Data[4], Object_Data[5], 0, 0);
+		}
+		if (Mouse_Over == 3){
+			Mouse_Over = 0;
+			Background->New_Textured_Object(Texture + " 1", 4, Object_Data[4], Object_Data[5], 0, 0);
+		}
 	}
-	if (Mouse_Over == 3){
-		Mouse_Over = 0;
-		Background->New_Textured_Object(Texture + " 1", 4, Object_Data[4], Object_Data[5], 0, 0);
-	}
-	
 	if (cx > Object_Data[7] && cx < Object_Data[6] && cy > Object_Data[9] && cy < Object_Data[8] && x > Object_Data[7] && x < Object_Data[6] && y > Object_Data[9] && y < Object_Data[8]){
 		return(true);
 	}
