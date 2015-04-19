@@ -122,5 +122,8 @@
     <None Include="DEV.data">
       <Filter>Text Files</Filter>
     </None>
+    <None Include="Lists.list">
+      <Filter>Text Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

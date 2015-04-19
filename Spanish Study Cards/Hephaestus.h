@@ -25,6 +25,9 @@ public:
 	/*-----User Input-----*/
 	void Key_Call_Back(GLFWwindow* Win, int key, int scancode, int action, int mods);
 	void Mouse_Call_Back(GLFWwindow* Win, int button, int action, int mods);
+	int Check_Key();
+	void Clear_Mouse();
+	void Clear_Key();
 	/*-----Layers-----*/
 	/*>>Layer Actions<<*/
 	void Display_All_Layers();

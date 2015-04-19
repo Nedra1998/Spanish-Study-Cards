@@ -67,11 +67,11 @@ void Object::Genorate_Colored_Object(){
 	GLint compile_ok;
 	glGenBuffers(1, &Points_Vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, Points_Vbo);
-	glBufferData(GL_ARRAY_BUFFER, Object_Data[1] * 3 * sizeof (float), Points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, Object_Data[1] * 3 * sizeof(float), Points, GL_STATIC_DRAW);
 
 	glGenBuffers(1, &Color_Vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, Color_Vbo);
-	glBufferData(GL_ARRAY_BUFFER, Object_Data[1] * 4 * sizeof (float), Colors, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, Object_Data[1] * 4 * sizeof(float), Colors, GL_STATIC_DRAW);
 	glGenVertexArrays(1, &Vao);
 	glBindVertexArray(Vao);
 	glBindBuffer(GL_ARRAY_BUFFER, Points_Vbo);
@@ -386,6 +386,9 @@ void Object::Read_Line(string line){
 		else if (b == ':'){
 			Charictars[a] = "Colon";
 		}
+		else if (b == '/'){
+			Charictars[a] = "Slash";
+		}
 		else if (b == '|'){
 			Charictars[a] = "<Return>";
 		}
@@ -489,6 +492,12 @@ float Object::Return_Float_Value(int val){
 	}
 	if (val == 9){
 		return(Object_Data[9]);
+	}
+	if (val == 17){
+		return(Text_Data[7]);
+	}
+	if (val == 18){
+		return(Text_Data[8]);
 	}
 }
 string Object::Return_String_Value(int val){
@@ -717,6 +726,7 @@ void Object::Translate_Text_Object(float x, float y, float z){
 void Object::New_Button(string text, string texture, string font, float x, float y){
 	int Lines = 1;
 	float Length, letter_sizex, letter_sizey, size, yshift, xshift;
+	Font = font;
 	Object_Type = 5;
 	Object_Data[2] = 0.0;
 	Object_Data[3] = 0.0;
@@ -764,6 +774,34 @@ void Object::New_Button(string text, string texture, string font, float x, float
 		Background->New_Textured_Object(texture, 4, x, y, 0, 0);
 	}
 }
+void Object::Edit_Button(string text){
+	Object* Tempor = new Object();
+	int Lines = 1;
+	float Length, letter_sizex, letter_sizey, size, yshift, xshift;
+	for (int a = 0; a < text.size(); a++){
+		if (text[a] == '|'){
+			Lines++;
+		}
+	}
+	Length = text.size();
+	letter_sizex = (Object_Data[4] * 2) / Length;
+	letter_sizex = letter_sizex - (letter_sizex / 3);
+	size = letter_sizex * Length;
+	letter_sizey = (6 * (letter_sizex / 3));
+	size = letter_sizey * Lines;
+	if (letter_sizey * Lines > Object_Data[5]){
+		letter_sizey = (Object_Data[5]) / Lines;
+		letter_sizey = letter_sizey - (letter_sizey / 6);
+		letter_sizex = (3 * (letter_sizey / 6));
+	}
+	Tempor->New_Text_Object(text, Font);
+	Tempor->Reset_Text_Data(letter_sizex / 2, letter_sizey / 2, 0, 0, 0, 0);
+	xshift = -((letter_sizex * Length) / 2);
+	yshift = ((Lines / 2) * letter_sizey);
+	Tempor->Translate_Text_Object(xshift, yshift, 0);
+	Tempor->Translate_Text_Object(Object_Data[2], Object_Data[3], 0.0);
+	Text = Tempor;
+}
 bool Object::Check_Button(float x, float y, float cx, float cy){
 	if (x > Object_Data[7] && x < Object_Data[6] && y > Object_Data[9] && y < Object_Data[8]){
 		Mouse_Over = 1;
@@ -788,6 +826,8 @@ bool Object::Check_Button(float x, float y, float cx, float cy){
 void Object::Translate_Button(float x, float y, float z){
 	Background->Translate_Object(x, y, z);
 	Text->Translate_Text_Object(x, y, z);
+	Object_Data[2] = Object_Data[2] + x;
+	Object_Data[3] = Object_Data[3] + y;
 	Object_Data[7] = Object_Data[7] + x;
 	Object_Data[6] = Object_Data[6] + x;
 	Object_Data[9] = Object_Data[9] + y;

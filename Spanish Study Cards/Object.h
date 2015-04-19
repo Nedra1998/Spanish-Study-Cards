@@ -24,8 +24,9 @@ private:
 	/*-----Button Data-----*/
 	Object* Text;
 	Object* Background;
+	string Font;
 	int Mouse_Over = 0;
-	bool Mouse = false;
+	bool Mouse;
 	/*>>>>>-----PRIVATE FUNCTIONS-----<<<<<*/
 	/*-----Objects Functions-----*/
 	void Genorate_Points();
@@ -33,7 +34,7 @@ private:
 	void Genorate_Colored_Object();
 	void Read_TGA(string file);
 	void Genorate_Textured_Object();
-	
+
 	/*-----Text Object Functions-----*/
 	void Read_Line(string line);
 	void Update_Text_Object();
@@ -48,7 +49,7 @@ public:
 	void Display_Object();
 	void New_Colored_Object(int points, float xsize, float ysize, float r, float g, float b, float a, int colision, int physics);
 	void New_Textured_Object(string texture, int points, float xsize, float ysize, int colision, int physics);
-	
+
 	/*-----Text Object Functions-----*/
 	void Set_Text_Data(int Type, float Value);
 	void Reset_Text_Data(float X_Size, float Y_Size, float Font, float Color, float Collision, float Physics);
@@ -60,6 +61,7 @@ public:
 
 	/*-----Button Objects Functions-----*/
 	void New_Button(string text, string texture, string font, float x, float y);
+	void Edit_Button(string text);
 	bool Check_Button(float x, float y, float cx, float cy);
 	void Translate_Button(float x, float y, float z);
 };

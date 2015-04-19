@@ -4,18 +4,20 @@
 #include "Menu.h"
 using namespace std;
 Hephaestus H;
+Menu M;
 GLFWwindow* Win;
 void Key_Call(GLFWwindow* Win, int key, int scancode, int action, int mods){
 	H.Key_Call_Back(Win, key, scancode, action, mods);
+	M.H_Menu.Key_Call_Back(Win, key, scancode, action, mods);
 }
 void Mouse_Call(GLFWwindow* Win, int button, int action, int mods){
 	H.Mouse_Call_Back(Win, button, action, mods);
+	M.H_Menu.Mouse_Call_Back(Win, button, action, mods);
 }
 void Window_Call(GLFWwindow* Win, int width, int hight){
 	glfwSetWindowSize(Win, width, hight);
 }
 int main(){
-	Menu M;
 	GLFWwindow* Win;
 	Win = H.Full_Setup();
 	glEnable(GL_DEPTH_TEST);
@@ -31,9 +33,11 @@ int main(){
 	M.Initilize_Menu(Win, H);
 	while (!glfwWindowShouldClose(Win)){
 		/*>>>>>Place While Running Code Here<<<<<*/
+		if (Menu == -1){
+			glfwSetWindowShouldClose(Win, 1);
+		}
 		if (Menu == 0){
 			Menu = M.Run_Menu(Menu);
-
 		}
 		H.Display_All_Layers();
 		H.Frame();
