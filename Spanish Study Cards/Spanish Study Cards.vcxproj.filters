@@ -62,6 +62,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files\Core Files</Filter>
     </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Source Files\Core Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Libraries.h">
@@ -94,6 +97,9 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files\Core Headers</Filter>
     </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Header Files\Core Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log_File.Log">
@@ -123,6 +129,9 @@
       <Filter>Text Files</Filter>
     </None>
     <None Include="Lists.list">
+      <Filter>Text Files</Filter>
+    </None>
+    <None Include="Tests.list">
       <Filter>Text Files</Filter>
     </None>
   </ItemGroup>
